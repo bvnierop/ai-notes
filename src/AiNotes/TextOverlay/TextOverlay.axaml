@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:textOverlay="clr-namespace:AiNotes.TextOverlay"
+             x:DataType="textOverlay:TextOverlayViewModel"
+             x:Class="AiNotes.TextOverlay.TextOverlay">
+    <Grid>
+        <!-- Display the image -->
+        <Image
+            Source="{Binding Image}"
+            Stretch="Uniform" />
+
+        <!-- Overlay the text regions -->
+        <ItemsControl
+            ItemsSource="{Binding TextRegions}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text="{Binding Text}"
+                             Background="Transparent"
+                             Foreground="Transparent"
+                             SelectionForegroundBrush="White"
+                             BorderThickness="0"
+                             IsReadOnly="True"
+                             Width="{Binding Width}"
+                             Height="{Binding Height}" >
+                        <TextBox.Styles>
+                            <!-- Style for TextBox when focused -->
+                            <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+                            	<Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0" />
+                            </Style>
+                        </TextBox.Styles>
+                    </TextBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.Styles>
+                <Style Selector="ContentPresenter" x:DataType="textOverlay:TextRegion">
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                </Style>
+            </ItemsControl.Styles>
+        </ItemsControl>
+    </Grid>
+</UserControl>

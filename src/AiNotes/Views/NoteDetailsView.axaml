@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:AiNotes.ViewModels"
              xmlns:conv="clr-namespace:AiNotes.Converters;assembly=AiNotes"
+             xmlns:textOverlay="clr-namespace:AiNotes.TextOverlay"
              x:Class="AiNotes.Views.NoteDetailsView"
              x:DataType="vm:MainWindowViewModel">
     <UserControl.Resources>
@@ -45,8 +46,12 @@
                                         Command="{Binding ((vm:MainWindowViewModel)DataContext).RemoveAttachmentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                         CommandParameter="{Binding}" Margin="5" />
 
-                                <Image Source="{Binding Image}" Width="210" Height="297"
-                                       IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Image}" />
+                                <!-- <Image Source="{Binding Image}" Width="210" Height="297" -->
+                                <!--        IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Image}" /> -->
+                                <textOverlay:TextOverlay Width="210" Height="297"
+                                                         DataContext="{Binding ImageWithTextOverlay}"
+                                       />
+                                       <!-- IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Image}" -->
                                 <TextBlock Text="Video Placeholder"
                                            IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Video}" />
                                 <TextBlock Text="Audio Placeholder"

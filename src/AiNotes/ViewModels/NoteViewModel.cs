@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using AiNotes.Models;
+using AiNotes.TextOverlay;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using ReactiveUI;
@@ -47,18 +48,26 @@ public class NoteViewModel : ViewModelBase
 public class AttachmentViewModel(Attachment attachment)
 {
     public Attachment Attachment { get; } = attachment;
-    private IImage? _image = null;
+    private TextOverlayViewModel? _imageWithTextOverlay = null;
 
-    public IImage? Image
+    public TextOverlayViewModel? ImageWithTextOverlay
     {
         get
         {
-            if (_image == null && Attachment.Type == AttachmentType.Image)
+            if (_imageWithTextOverlay == null && Attachment.Type == AttachmentType.Image)
             {
-                _image = new Bitmap(Attachment.FilePath);
+                var image = new Bitmap(Attachment.FilePath);
+                _imageWithTextOverlay = new TextOverlayViewModel
+                {
+                    Image = image,
+                    TextRegions = new ObservableCollection<TextRegion>
+                    {
+                        new TextRegion { Text = "Foo", X = 0, Y = 0, Width = 210, Height = 50, },
+                        new TextRegion { Text = "Bar", X = 0, Y = 250, Width = 50, Height = 25, }
+                    }
+                };
             }
-
-            return _image;
+            return _imageWithTextOverlay;
         }
     }
 
