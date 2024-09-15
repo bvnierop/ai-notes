@@ -1,0 +1,16 @@
+#+title: AI Notes
+
+* AI Notes
+
+This project is a sample note taking application in order to demonstrate
+applications of modern AI tools.
+
+** Dependencies
+- Python3
+- ...
+
+
+** Models
+*** EasyOCR
+This one's hard (though not impossible) to convert to ONNX, so instead, at least for now, it runs
+through a Python script.
