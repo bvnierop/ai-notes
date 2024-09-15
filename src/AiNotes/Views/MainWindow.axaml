@@ -24,11 +24,11 @@
 
         <!-- Left Pane: List of Notes -->
         <ListBox Grid.Column="0"
-                 ItemsSource="{Binding NoteTitles}"
-                 SelectedItem="{Binding SelectedNoteTitle}">
+                 ItemsSource="{Binding Notes}"
+                 SelectedItem="{Binding SelectedNote}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}"/>
+                    <TextBlock Text="{Binding Title}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -36,7 +36,7 @@
         <!-- Right Pane: Editing Pane -->
         <Grid Grid.Column="1" Margin="10">
             <ScrollViewer>
-            <TextBox Text="{Binding SelectedNoteBody, Mode=TwoWay}"
+            <TextBox Text="{Binding SelectedNote.Body, Mode=TwoWay}"
                      AcceptsReturn="True"
                      Watermark="Type your note here..."
                      />
