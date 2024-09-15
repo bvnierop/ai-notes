@@ -16,7 +16,31 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
-    <md:MarkdownScrollViewer Markdown="{Binding Greeting}">
-    </md:MarkdownScrollViewer>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/> <!-- Left Pane Width -->
+            <ColumnDefinition Width="*"/>   <!-- Right Pane Width -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Pane: List of Notes -->
+        <ListBox Grid.Column="0"
+                 ItemsSource="{Binding NoteTitles}"
+                 SelectedItem="{Binding SelectedNoteTitle}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Right Pane: Editing Pane -->
+        <Grid Grid.Column="1" Margin="10">
+            <ScrollViewer>
+            <TextBox Text="{Binding SelectedNoteBody, Mode=TwoWay}"
+                     AcceptsReturn="True"
+                     Watermark="Type your note here..."
+                     />
+            </ScrollViewer>
+        </Grid>
+    </Grid>
 </Window>
