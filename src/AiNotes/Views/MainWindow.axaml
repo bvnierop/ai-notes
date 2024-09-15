@@ -35,12 +35,20 @@
 
         <!-- Right Pane: Editing Pane -->
         <Grid Grid.Column="1" Margin="10">
-            <ScrollViewer>
-            <TextBox Text="{Binding SelectedNote.Body, Mode=TwoWay}"
-                     AcceptsReturn="True"
-                     Watermark="Type your note here..."
-                     />
-            </ScrollViewer>
+            <StackPanel>
+                <!-- Title TextBox -->
+                <TextBox Text="{Binding SelectedNote.Title, Mode=TwoWay}"
+                         FontWeight="Bold"
+                         FontSize="18"
+                         Margin="0,0,0,10"
+                         Watermark="Note Title" />
+                <!-- Content -->
+                <ScrollViewer>
+                    <TextBox Text="{Binding SelectedNote.Body, Mode=TwoWay}"
+                             AcceptsReturn="True"
+                             Watermark="Type your note here..." />
+                </ScrollViewer>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
