@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AiNotes.ViewModels"
+             xmlns:conv="clr-namespace:AiNotes.Converters;assembly=AiNotes"
+             x:Class="AiNotes.Views.NoteDetailsView"
+             x:DataType="vm:MainWindowViewModel">
+    <UserControl.Resources>
+        <conv:AttachmentTypeToVisibilityConverter x:Key="AttachmentTypeToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <StackPanel>
+            <!-- Title TextBox -->
+            <TextBox Text="{Binding SelectedNote.Title, Mode=TwoWay}"
+                     FontWeight="Bold"
+                     FontSize="18"
+                     Margin="0,0,0,10"
+                     Watermark="Note Title" />
+            <!-- Content -->
+            <ScrollViewer>
+                <TextBox Text="{Binding SelectedNote.Body, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         Watermark="Type your note here..." />
+            </ScrollViewer>
+
+            <TextBlock Text="Attachments:" FontWeight="Bold" Margin="0,10,0,5" />
+
+            <!-- Horizontal scrolling for attachments -->
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="500">
+                <ItemsControl ItemsSource="{Binding SelectedNote.Attachments}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <!-- Template for different attachment types -->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Content="Remove"
+                                        Command="{Binding ((vm:MainWindowViewModel)DataContext).RemoveAttachmentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                        CommandParameter="{Binding}" Margin="5" />
+
+                                <Image Source="{Binding Image}" Width="210" Height="297"
+                                       IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Image}" />
+                                <TextBlock Text="Video Placeholder"
+                                           IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Video}" />
+                                <TextBlock Text="Audio Placeholder"
+                                           IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Audio}" />
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- Button to add attachment -->
+            <Button Content="Add Attachment" Command="{Binding AddAttachmentCommand}" Margin="0,10,0,0" />
+        </StackPanel>
+    </Grid>
+</UserControl>
