@@ -7,7 +7,16 @@ applications of modern AI tools.
 
 ** Dependencies
 - Python3
-- ...
+- Pip3
+- Virtualenv
+
+** Running
+To run the project, first create a virtual environment and install the dependencies:
+#+begin_src bash
+virrtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+#+end_src
 
 
 ** Models

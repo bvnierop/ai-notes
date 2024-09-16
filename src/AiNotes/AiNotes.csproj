@@ -28,4 +28,11 @@
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0"/>
         <PackageReference Include="Markdown.Avalonia" Version="11.0.2" />
     </ItemGroup>
+
+
+    <ItemGroup>
+      <None Update="Scripts\ocr.py">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>
