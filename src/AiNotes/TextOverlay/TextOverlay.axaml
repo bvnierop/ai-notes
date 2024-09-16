@@ -6,6 +6,7 @@
     <Grid>
         <!-- Display the image -->
         <Image
+            x:Name="Image"
             Source="{Binding Image}"
             Focusable="True"
             Stretch="Uniform" />
@@ -23,11 +24,15 @@
                     <TextBox Text="{Binding Text}"
                              Background="Transparent"
                              Foreground="Transparent"
+                             Padding="0"
+                             Margin="0"
                              SelectionForegroundBrush="White"
                              BorderThickness="0"
                              IsReadOnly="True"
                              Width="{Binding Width}"
-                             Height="{Binding Height}" >
+                             Height="{Binding Height}"
+                             MinHeight="{Binding Height}"
+                             >
                         <TextBox.Styles>
                             <!-- Style for TextBox when focused -->
                             <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">

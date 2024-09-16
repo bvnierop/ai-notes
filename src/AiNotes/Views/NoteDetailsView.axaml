@@ -30,7 +30,7 @@
             <TextBlock Text="Attachments:" FontWeight="Bold" Margin="0,10,0,5" />
 
             <!-- Horizontal scrolling for attachments -->
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="500">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding SelectedNote.Attachments}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -48,7 +48,7 @@
 
                                 <!-- <Image Source="{Binding Image}" Width="210" Height="297" -->
                                 <!--        IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Image}" /> -->
-                                <textOverlay:TextOverlay Width="210" Height="297"
+                                <textOverlay:TextOverlay MaxHeight="800" MaxWidth="900"
                                                          DataContext="{Binding ImageWithTextOverlay}"
                                        />
                                        <!-- IsVisible="{Binding Type, Converter={StaticResource AttachmentTypeToVisibilityConverter}, ConverterParameter=Image}" -->

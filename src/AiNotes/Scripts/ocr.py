@@ -28,3 +28,4 @@ for result in ocr_result:
     res.append(obj)
 
 print(json.dumps(res))
+exit(0)

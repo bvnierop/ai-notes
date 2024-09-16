@@ -14,5 +14,15 @@ public partial class TextOverlay : UserControl
     public TextOverlay()
     {
         InitializeComponent();
+
+        this.LayoutUpdated += (sender, e) =>
+        {
+            if (DataContext is TextOverlayViewModel viewModel)
+            {
+                viewModel.ControlWidth = this.Image.Bounds.Width;
+                viewModel.ControlHeight = this.Image.Bounds.Height;
+                viewModel.Normalize();
+            }
+        };
     }
 }

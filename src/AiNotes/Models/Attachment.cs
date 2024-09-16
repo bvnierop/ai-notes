@@ -1,3 +1,4 @@
+using AiNotes.Scripts;
 using ReactiveUI;
 
 namespace AiNotes.Models;
@@ -34,4 +35,15 @@ public class Attachment : ReactiveObject
         FilePath = filePath;
         Type = type;
     }
+}
+
+public class ImageAttachment : Attachment
+{
+    public ImageAttachment(string filePath) : base(filePath, AttachmentType.Image)
+    {
+        var result = OcrPy.ExecuteAsync(filePath);
+        OcrResults = result;
+    }
+
+    public OcrPy.OcrResult[] OcrResults { get; set; }
 }
