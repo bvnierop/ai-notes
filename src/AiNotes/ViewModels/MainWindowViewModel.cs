@@ -43,12 +43,9 @@ public class MainWindowViewModel : ViewModelBase
     {
         _parentWindow = parentWindow;
 
-        Notes = new ObservableCollection<NoteViewModel>
-        {
-            new(new Note("Note 1", "Content for Note 1", [ new ImageAttachment("Files/invoice2.png") ])),
-            new(new Note("Note 2", "Content for Note 2", [])),
-            new(new Note("Note 3", "Content for Note 3", []))
-        };
+        var notes = DemoContent.DemoNotes.Select(note => new NoteViewModel(note));
+
+        Notes = new ObservableCollection<NoteViewModel>(notes);
 
         // Set a default selection (first note)
         if (Notes.Count > 0)
