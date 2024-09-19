@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Windows.Input;
 using AiNotes.Models;
 using ReactiveUI;
 
@@ -15,6 +16,11 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ObservableCollection<NoteViewModel> Notes { get; set; }
+
+     // Commands for the buttons
+     public ICommand SummaryCommand { get; }
+     public ICommand TasksCommand { get; }
+     public ICommand AutoCompleteCommand { get; }
 
     // Constructor
     public MainWindowViewModel()
@@ -35,6 +41,25 @@ public class MainWindowViewModel : ViewModelBase
         // Initialize commands
         AddAttachmentCommand = ReactiveCommand.Create(AddAttachment);
         RemoveAttachmentCommand = ReactiveCommand.Create<AttachmentViewModel>(RemoveAttachment);
+
+        SummaryCommand = ReactiveCommand.Create(GenerateSummary);
+        TasksCommand = ReactiveCommand.Create(GenerateTasks);
+        AutoCompleteCommand = ReactiveCommand.Create(AutoCompleteText);
+    }
+
+    private void AutoCompleteText()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void GenerateTasks()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void GenerateSummary()
+    {
+        throw new System.NotImplementedException();
     }
 
     private async void AddAttachment()

@@ -19,12 +19,24 @@
     </Design.DataContext>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/> <!-- Left Pane Width -->
             <ColumnDefinition Width="*"/>   <!-- Right Pane Width -->
         </Grid.ColumnDefinitions>
 
-        <view:NoteListView Grid.Column="0" />
-        <view:NoteDetailsView Grid.Column="1" />
+        <view:NoteListView Grid.Column="0" Grid.Row="0" />
+        <view:NoteDetailsView Grid.Column="1" Grid.Row="0" />
+
+        <!-- Action buttons row at the bottom -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Summary" Command="{Binding SummaryCommand}" Width="150" Margin="5" />
+            <Button Content="Tasks" Command="{Binding TasksCommand}" Width="150" Margin="5" />
+            <Button Content="AutoComplete" Command="{Binding AutoCompleteCommand}" Width="150" Margin="5" />
+        </StackPanel>
     </Grid>
 </Window>
