@@ -37,6 +37,8 @@
             <Button Content="Summary" Command="{Binding SummaryCommand}" Width="150" Margin="5" />
             <Button Content="Tasks" Command="{Binding TasksCommand}" Width="150" Margin="5" />
             <Button Content="AutoComplete" Command="{Binding AutoCompleteCommand}" Width="150" Margin="5" />
+            <TextBox Text="{Binding SearchTerm, Mode=TwoWay}" Width="200" Margin="5" />
+            <Button Content="Search" Command="{Binding SearchCommand}" Width="150" Margin="5" />
         </StackPanel>
     </Grid>
 </Window>
