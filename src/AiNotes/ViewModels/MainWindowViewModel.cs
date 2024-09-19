@@ -2,6 +2,7 @@
 using System.Reactive;
 using System.Windows.Input;
 using AiNotes.Models;
+using AiNotes.Scripts;
 using ReactiveUI;
 
 namespace AiNotes.ViewModels;
@@ -59,7 +60,9 @@ public class MainWindowViewModel : ViewModelBase
 
     private void GenerateSummary()
     {
-        throw new System.NotImplementedException();
+        var result = SummarizePy.ExecuteAsync([ SelectedNote.Body ]);
+
+        SelectedNote.Body += "\n\nSummary:\n" + result;
     }
 
     private async void AddAttachment()
