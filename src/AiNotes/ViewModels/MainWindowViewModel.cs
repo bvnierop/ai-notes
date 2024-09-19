@@ -70,16 +70,6 @@ public class MainWindowViewModel : ViewModelBase
 
     private void Search()
     {
-        // Search with SearchTerm
-        //  1. Convert documents to json in the following format
-        // {
-        //    id: 1,
-        //    title: "Note 1",
-        //    body: "Content for Note 1"
-        // }
-        //
-        // Pass that as input to python script
-        // Concat the result to the end of the current note
         var searchThingies = Notes.Select((model, i) => SearchThingy.OfNoteViewModel(i, model)).ToList();
         var searchJson = new SearchJson(SearchTerm, searchThingies.ToArray());
         var result = ExecutePy.Execute("search", [ JsonSerializer.Serialize(searchJson) ]);
@@ -108,7 +98,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private async void AddAttachment()
     {
-        var filePath = "Files/invoice2.png";
+        var filePath = "Files/marketing.jpeg";
         SelectedNote.Attachments.Add(new AttachmentViewModel(new ImageAttachment(filePath)));
     }
 
