@@ -41,9 +41,12 @@ public class ImageAttachment : Attachment
 {
     public ImageAttachment(string filePath) : base(filePath, AttachmentType.Image)
     {
-        var result = OcrPy.ExecuteAsync(filePath);
-        OcrResults = result;
+        if (filePath.EndsWith(".jpeg"))
+        {
+            var result = OcrPy.ExecuteAsync(filePath);
+            OcrResults = result;
+        }
     }
 
-    public OcrPy.OcrResult[] OcrResults { get; set; }
+    public OcrPy.OcrResult[] OcrResults { get; set; } = [];
 }

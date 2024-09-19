@@ -1,16 +1,21 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Text.Json;
 using System.Windows.Input;
 using AiNotes.Models;
 using AiNotes.Scripts;
+using Avalonia.Controls;
 using ReactiveUI;
 
 namespace AiNotes.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private Window _parentWindow;
+
     private NoteViewModel _selectedNote;
     public NoteViewModel SelectedNote
     {
@@ -34,8 +39,10 @@ public class MainWindowViewModel : ViewModelBase
      public ICommand SearchCommand { get; }
 
      // Constructor
-    public MainWindowViewModel()
+    public MainWindowViewModel(Window parentWindow)
     {
+        _parentWindow = parentWindow;
+
         Notes = new ObservableCollection<NoteViewModel>
         {
             new(new Note("Note 1", "Content for Note 1", [ new ImageAttachment("Files/invoice2.png") ])),
@@ -98,8 +105,41 @@ public class MainWindowViewModel : ViewModelBase
 
     private async void AddAttachment()
     {
-        var filePath = "Files/marketing.jpeg";
-        SelectedNote.Attachments.Add(new AttachmentViewModel(new ImageAttachment(filePath)));
+        Debug.WriteLine($"AddAttachment: {Environment.CurrentDirectory}");
+        var dialog = new OpenFileDialog
+        {
+            Title = "Select a file to attach",
+            Directory = $"{Environment.CurrentDirectory}/Files",
+            AllowMultiple = false // Set to true if you want to allow multiple files
+        };
+
+        string[]? result = await dialog.ShowAsync(_parentWindow);
+
+        if (result != null && result.Length > 0)
+        {
+            string selectedFilePath = result[0]; // Get the first selected file
+            // Console.WriteLine($"File selected: {selectedFilePath}");
+
+            // Add the file as an attachment (or process it as needed)
+            if (selectedFilePath.EndsWith(".jpeg") || selectedFilePath.EndsWith(".jpg") || selectedFilePath.EndsWith(".png"))
+                SelectedNote.Attachments.Add(new AttachmentViewModel(new ImageAttachment(selectedFilePath)));
+            else if (selectedFilePath.EndsWith(".mp4"))
+                AddVideoAttachment(selectedFilePath);
+        }
+        else
+        {
+            // Console.WriteLine("No file selected.");
+        }
+
+
+        // var filePath = "Files/marketing.jpeg";
+    }
+
+    private void AddVideoAttachment(string selectedFilePath)
+    {
+        SelectedNote.Attachments.Add(new AttachmentViewModel(new ImageAttachment("Files/avi.png")));
+        var result = TranscribePy.ExecuteAsync(selectedFilePath);
+        SelectedNote.Body += "\n\nTranscription:\n" + result;
     }
 
     private void RemoveAttachment(AttachmentViewModel attachment)
