@@ -24,6 +24,7 @@
             <ScrollViewer>
                 <TextBox Text="{Binding SelectedNote.Body, Mode=TwoWay}"
                          AcceptsReturn="True"
+                         MinHeight="500"
                          Watermark="Type your note here..." />
             </ScrollViewer>
 
