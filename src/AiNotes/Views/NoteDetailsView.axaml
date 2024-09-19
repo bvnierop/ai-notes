@@ -21,10 +21,11 @@
                      Margin="0,0,0,10"
                      Watermark="Note Title" />
             <!-- Content -->
-            <ScrollViewer>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" >
                 <TextBox Text="{Binding SelectedNote.Body, Mode=TwoWay}"
                          AcceptsReturn="True"
                          MinHeight="500"
+                         TextWrapping="Wrap"
                          Watermark="Type your note here..." />
             </ScrollViewer>
 

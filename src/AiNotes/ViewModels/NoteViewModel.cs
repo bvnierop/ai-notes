@@ -24,9 +24,8 @@ public class NoteViewModel : ViewModelBase
     {
         get => _note.Title;
         set {
-            var t = _note.Title;
-            this.RaiseAndSetIfChanged(ref t, value);
-            _note.Title = t;
+            _note.Title = value;
+            this.RaisePropertyChanged();
         }
     }
 
@@ -34,9 +33,8 @@ public class NoteViewModel : ViewModelBase
     {
         get => _note.Body;
         set {
-            var t = _note.Body;
-            this.RaiseAndSetIfChanged(ref t, value);
-            _note.Body = t;
+            _note.Body = value;
+            this.RaisePropertyChanged();
         }
     }
 
