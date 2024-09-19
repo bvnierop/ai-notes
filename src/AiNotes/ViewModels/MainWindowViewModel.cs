@@ -55,12 +55,14 @@ public class MainWindowViewModel : ViewModelBase
 
     private void GenerateTasks()
     {
-        throw new System.NotImplementedException();
+        var result = ExecutePy.Execute("todos", [ SelectedNote.Body ]);
+
+        SelectedNote.Body += "\n\n" + result;
     }
 
     private void GenerateSummary()
     {
-        var result = SummarizePy.ExecuteAsync([ SelectedNote.Body ]);
+        var result = ExecutePy.Execute("summarize", [ SelectedNote.Body ]);
 
         SelectedNote.Body += "\n\nSummary:\n" + result;
     }
