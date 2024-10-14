@@ -26,7 +26,7 @@ summary_ids = model.generate(
     inputs['input_ids'],
     num_beams=4,
     length_penalty=2.0,
-    max_length=150,
+    max_length=1024,
     min_length=40,
     no_repeat_ngram_size=3,
     early_stopping=True
